@@ -1,0 +1,23 @@
+// registry/index.json (example)
+{
+  "registry_name": "Official C++ Templates",
+  "templates": {
+    "modern-cmake-lib": {
+      "id": "modern-cmake-lib",
+      "name": "Modern CMake Library",
+      "description": "CMake-based library starter with tests and CI skeleton.",
+      "url": "https://github.com/example/modern-cmake-lib.git",
+      "tags": ["library", "cmake", "tests"],
+      "build_system": "cmake"
+    },
+    "qt6-app": {
+      "id": "qt6-app",
+      "name": "Qt6 Application",
+      "description": "Qt6 Widgets or QML app starter.",
+      "url": "https://github.com/example/qt6-app-template.git",
+      "tags": ["qt", "gui", "cmake"],
+      "build_system": "cmake"
+    }
+  }
+}
+
