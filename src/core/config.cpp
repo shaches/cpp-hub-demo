@@ -8,7 +8,7 @@ namespace cpp_hub {
 
 std::string default_registry_url() {
     // Change this to your real registry URL
-    return "https://github.com/example/cpp-hub-registry.git";
+    return "https://github.com/shaches/cpp-hub-registry.git";
 }
 
 fs::path config_root() {
