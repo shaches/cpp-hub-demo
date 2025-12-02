@@ -15,4 +15,3 @@ std::filesystem::path cache_root();
 std::string version();
 
 } // namespace cpp_hub
-

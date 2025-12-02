@@ -1,4 +1,3 @@
-// registry/index.json (example)
 {
   "registry_name": "Official C++ Templates",
   "templates": {
@@ -20,4 +19,3 @@
     }
   }
 }
-

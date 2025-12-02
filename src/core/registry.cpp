@@ -124,4 +124,3 @@ void Registry::load_index() {
 }
 
 } // namespace cpp_hub
-

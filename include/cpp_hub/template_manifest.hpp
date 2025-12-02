@@ -24,6 +24,16 @@ struct VariableDef {
     std::string errorMessage;
 };
 
+// NEW: overlay rule for conditional directories
+struct OverlayRule {
+    // Name of the variable to inspect (e.g. "package_manager")
+    std::string variable;
+    // Value that must match exactly (e.g. "vcpkg")
+    std::string equalsValue;
+    // Path (relative to template root) to render on top of the base template
+    std::string path;
+};
+
 struct TemplateManifest {
     std::string schemaVersion;
     std::string id;
@@ -32,6 +42,9 @@ struct TemplateManifest {
     std::string description;
     std::vector<VariableDef> variables;
     std::vector<std::string> postGenHooks;
+
+    // NEW: optional overlays
+    std::vector<OverlayRule> overlays;
 };
 
 TemplateManifest load_manifest(const std::filesystem::path& manifestPath);
@@ -44,4 +57,3 @@ bool collect_variables_interactively(
     std::unordered_map<std::string, std::string>& outValues);
 
 } // namespace cpp_hub
-

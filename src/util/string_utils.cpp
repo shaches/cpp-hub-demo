@@ -49,4 +49,3 @@ bool parse_bool(const std::string& text, bool& out) {
 }
 
 } // namespace cpp_hub::util
-

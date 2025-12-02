@@ -41,21 +41,31 @@ static bool path_contains_git_dir(const fs::path& p, const fs::path& root) {
 bool render_template(
     const fs::path& templateRoot,
     const fs::path& targetRoot,
-    const std::unordered_map<std::string, std::string>& values) {
+    const std::unordered_map<std::string, std::string>& values,
+    bool allowExisting) {
 
     std::error_code ec;
+
     if (fs::exists(targetRoot, ec)) {
-        std::cerr << "Target path already exists: " << targetRoot << "\n";
-        return false;
-    }
-    if (!fs::create_directories(targetRoot, ec) && ec) {
-        std::cerr << "Failed to create target directory " << targetRoot
-                  << ": " << ec.message() << "\n";
-        return false;
+        if (!allowExisting) {
+            std::cerr << "Target path already exists: " << targetRoot << "\n";
+            return false;
+        }
+        if (!fs::is_directory(targetRoot, ec)) {
+            std::cerr << "Target path exists but is not a directory: " << targetRoot << "\n";
+            return false;
+        }
+    } else {
+        if (!fs::create_directories(targetRoot, ec) && ec) {
+            std::cerr << "Failed to create target directory " << targetRoot
+                      << ": " << ec.message() << "\n";
+            return false;
+        }
     }
 
     try {
-        fs::recursive_directory_iterator it(templateRoot, fs::directory_options::skip_permission_denied), end;
+        fs::recursive_directory_iterator it(
+            templateRoot, fs::directory_options::skip_permission_denied), end;
         for (; it != end; ++it) {
             const fs::path srcPath = it->path();
 
@@ -127,4 +137,3 @@ bool render_template(
 }
 
 } // namespace cpp_hub
-

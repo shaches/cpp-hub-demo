@@ -451,8 +451,35 @@ static int run_generation(const fs::path& templateRepoPath, bool useDefaults) {
         return 1;
     }
 
+    // 1) Render base template
     if (!render_template(templateRepoPath, targetPath, values)) {
         return 1;
+    }
+
+    // 2) Apply overlays (if any) on top, depending on collected variables
+    for (const auto& rule : manifest.overlays) {
+        auto vit = values.find(rule.variable);
+        if (vit == values.end()) {
+            continue;
+        }
+        if (vit->second != rule.equalsValue) {
+            continue;
+        }
+
+        fs::path overlayRoot = templateRepoPath / rule.path;
+        if (!fs::exists(overlayRoot)) {
+            std::cerr << "Warning: overlay path does not exist: " << overlayRoot << "\n";
+            continue;
+        }
+
+        std::cout << "Applying overlay for " << rule.variable
+                  << " == " << rule.equalsValue
+                  << " from " << overlayRoot << "\n";
+
+        if (!render_template(overlayRoot, targetPath, values, /*allowExisting*/ true)) {
+            std::cerr << "Failed to render overlay from " << overlayRoot << "\n";
+            return 1;
+        }
     }
 
     std::cout << "Project generated at: " << targetPath << "\n";

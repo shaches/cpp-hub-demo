@@ -48,4 +48,3 @@ bool run_command_in_dir(const std::string& cmd, const fs::path& dir) {
 }
 
 } // namespace cpp_hub::util
-

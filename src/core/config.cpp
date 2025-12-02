@@ -33,4 +33,3 @@ std::string version() {
 }
 
 } // namespace cpp_hub
-

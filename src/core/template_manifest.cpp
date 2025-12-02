@@ -121,6 +121,31 @@ TemplateManifest load_manifest(const fs::path& manifestPath) {
         }
     }
 
+    if (j.contains("overlays") && j["overlays"].is_array()) {
+        for (const auto& item : j["overlays"]) {
+            if (!item.is_object()) {
+                continue;
+            }
+            OverlayRule rule;
+
+            if (!item.contains("variable") || !item["variable"].is_string()) {
+                throw std::runtime_error("Overlay entry missing string field 'variable'.");
+            }
+            if (!item.contains("equals") || !item["equals"].is_string()) {
+                throw std::runtime_error("Overlay entry missing string field 'equals'.");
+            }
+            if (!item.contains("path") || !item["path"].is_string()) {
+                throw std::runtime_error("Overlay entry missing string field 'path'.");
+            }
+
+            rule.variable    = item["variable"].get<std::string>();
+            rule.equalsValue = item["equals"].get<std::string>();
+            rule.path        = item["path"].get<std::string>();
+
+            manifest.overlays.push_back(std::move(rule));
+        }
+    }
+
     return manifest;
 }
 
@@ -266,4 +291,3 @@ bool collect_variables_interactively(
 }
 
 } // namespace cpp_hub
-

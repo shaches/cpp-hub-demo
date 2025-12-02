@@ -36,4 +36,3 @@ target_compile_definitions(cpp-hub
     PRIVATE
         CPP_HUB_VERSION="${PROJECT_VERSION}"
 )
-

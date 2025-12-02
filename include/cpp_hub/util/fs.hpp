@@ -9,4 +9,3 @@ std::filesystem::path get_home_directory();
 bool ensure_directory(const std::filesystem::path& dir);
 
 } // namespace cpp_hub::util
-

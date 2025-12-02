@@ -9,4 +9,3 @@ int run(int argc, char** argv);
 void print_usage(std::ostream& os);
 
 } // namespace cpp_hub::cli
-

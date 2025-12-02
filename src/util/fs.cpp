@@ -42,4 +42,3 @@ bool ensure_directory(const fs::path& dir) {
 }
 
 } // namespace cpp_hub::util
-
