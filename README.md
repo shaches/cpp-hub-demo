@@ -1,76 +1,99 @@
-# cpp-hub (AI-generated demo)
+# 🚀 cpp-hub: C++ Project Template Hub (AI-Generated Demo)
 
-> ⚠️ **Note:** This is an **AI-generated demo implementation** of a C++ project template hub CLI.  
-> It is intended as a starting point / reference, **not** a production-ready tool.
+⚠️ **STABILITY NOTICE: CONCEPTUAL REFERENCE**
 
-`cpp-hub` is a small C++20 CLI that reduces “Day Zero” friction for C++ projects by:
+This repository is currently under **active construction** and is considered **highly volatile**. It is intended strictly as a **conceptual reference point**—a demonstration of what a C++ project template hub *could* have been—rather than a stable utility.
 
-- Discovering templates via a **local registry** (a Git repo with `index.json`).
-- Cloning template repositories into a local **cache**.
-- Generating new projects by applying simple `{{variable}}` substitutions in files and paths.
-- Optionally running template-defined **post-generation hooks** (e.g., `git init`, `git add .`).
+**Please be advised that this is not a production-ready tool.** Users should anticipate **incomplete functionality** and **frequent breaking changes**.
 
 ---
 
-## Features (MVP)
+## 💡 Overview
 
-- **Registry-backed discovery**
-  - Registry is a Git repo (default URL is hard-coded in `config.cpp`).
-  - Local clone lives under: `~/.cpp-hub/registry`
-  - Templates are described in `index.json` (id, name, url, tags, build system, etc.).
-  - `cpp-hub update` performs `git pull` on the registry.
+`cpp-hub` is a small **C++20 CLI** designed to significantly reduce the "Day Zero" friction associated with starting new C++ projects. It acts as a project generator that leverages remote templates.
 
-- **Template cache**
-  - Template repos are cloned under: `~/.cpp-hub/cache/<template-id>`  
-  - Reused on subsequent runs (no need to reclone every time).
+### Core Functionality
 
-- **Template manifests**
-  - Each template repo contains a `hub-manifest.json` at its root.
-  - Defines:
-    - Basic metadata: `schema_version`, `id`, `name`, `version`, `description`.
-    - `variables`:
-      - `string` (with optional `validation_regex` and `error_message`)
-      - `select` (with `options` and `default`)
-      - `boolean` (`y/n`, `yes/no`, `true/false`, case-insensitive)
-    - `hooks.post_gen`: a list of shell commands to optionally run after generation.
-
-- **Simple templating**
-  - Replaces `{{variable_name}}` in:
-    - File contents
-    - Relative paths / filenames
-  - Applies to all regular files under the template root, excluding:
-    - `.git` directory
-    - `hub-manifest.json`
-
-- **Commands**
-  - `cpp-hub new <template-id> [--defaults]`
-  - `cpp-hub new --git <url> [--branch <name>] [--defaults]`
-  - `cpp-hub search <query>`
-  - `cpp-hub list [--tag <tag>]`
-  - `cpp-hub update`
-  - `cpp-hub validate <path>`
-  - `cpp-hub version`
+1.  **Discovery:** Finds available project templates through a local registry (a Git repository containing an `index.json`).
+2.  **Caching:** Clones template repositories into a local cache (`~/.cpp-hub/cache`).
+3.  **Generation:** Creates new projects by applying simple `{{variable}}` substitutions within template file contents and paths.
+4.  **Hooks:** Optionally runs template-defined **post-generation hooks** (e.g., `git init`, `git add .`).
 
 ---
 
-## Requirements
+## ✨ Features (Minimum Viable Product - MVP)
 
-- **Language:** C++20 (or newer)
-- **Build system:** CMake ≥ 3.16
-- **Dependencies:**
-  - [`nlohmann::json`](https://github.com/nlohmann/json) (available via package managers or vcpkg, etc.)
-- **Runtime tools:**
-  - `git` available on `PATH` (used via `std::system`)
+### Registry-Backed Discovery
+
+* The **Registry** is a Git repository (default URL is hard-coded in `config.cpp`).
+* The local clone lives under: `~/.cpp-hub/registry`.
+* Templates are cataloged in an `index.json` file (including `id`, `name`, `url`, `tags`, `build system`, etc.).
+* `cpp-hub update` executes a `git pull` on the local registry clone.
+
+### Template Cache
+
+* Template repositories are cloned under: `~/.cpp-hub/cache/<template-id>`.
+* Templates are **reused** on subsequent runs, eliminating the need to re-clone every time.
+
+### Template Manifests
+
+Each template repository **must** contain a `hub-manifest.json` at its root. This manifest defines the template's behavior:
+
+* **Basic metadata:** `schema_version`, `id`, `name`, `version`, `description`.
+* **`variables`:** Defines inputs requested from the user, supporting:
+    * `string` (with optional `validation_regex` and `error_message`).
+    * `select` (with predefined `options` and a `default`).
+    * `boolean` (`y/n`, `yes/no`, `true/false`, case-insensitive).
+* **`hooks.post_gen`:** A list of shell commands to optionally run after the project is generated.
+
+### Simple Templating
+
+Variable substitution (`{{variable_name}}`) is applied to:
+
+* **File contents**
+* **Relative paths / filenames**
+
+This mechanism applies to all regular files under the template root, excluding:
+* The `.git` directory.
+* The `hub-manifest.json` file.
 
 ---
 
-## Building
+## 💻 Commands
 
-Assuming `nlohmann_json` is installed so that `find_package(nlohmann_json CONFIG REQUIRED)` works:
+| Command | Description |
+| :--- | :--- |
+| `cpp-hub new <template-id> [--defaults]` | Generates a new project from a registered template. |
+| `cpp-hub new --git <url> [--branch <name>] [--defaults]` | Generates a new project directly from a Git URL. |
+| `cpp-hub search <query>` | Searches the registry for templates matching the query. |
+| `cpp-hub list [--tag <tag>]` | Lists all available templates (optionally filtered by tag). |
+| `cpp-hub update` | Updates the local template registry via `git pull`. |
+| `cpp-hub validate <path>` | Validates the `hub-manifest.json` within a template path. |
+| `cpp-hub version` | Displays the `cpp-hub` version information. |
+
+---
+
+## 🛠️ Requirements
+
+### Toolchain
+* **Language:** C++20 (or newer)
+* **Build system:** CMake $\geq$ 3.16
+
+### Dependencies
+* `nlohmann::json` (available via package managers or `vcpkg`, etc.)
+
+### Runtime Tools
+* `git` must be available on your `PATH` (used internally via `std::system`).
+
+---
+
+## ⚙️ Building
+
+Assuming `nlohmann_json` is installed on your system so that `find_package(nlohmann_json CONFIG REQUIRED)` works:
 
 ```bash
-# Configure
+# Configure the build system
 cmake -S . -B build
 
-# Build
+# Build the project executable
 cmake --build build
