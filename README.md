@@ -2,7 +2,7 @@
 
 ⚠️ **STABILITY NOTICE: CONCEPTUAL REFERENCE**
 
-This repository is currently under **active construction** and is considered **highly volatile**. It is intended strictly as a **conceptual reference point**—a demonstration of what a C++ project template hub *could* have been—rather than a stable utility.
+This repository is currently under **active construction** and is considered **highly volatile**. It is intended strictly as a **conceptual reference point** "a demonstration of what a C++ project template hub *could* have been" rather than a stable utility.
 
 **Please be advised that this is not a production-ready tool.** Users should anticipate **incomplete functionality** and **frequent breaking changes**.
 
