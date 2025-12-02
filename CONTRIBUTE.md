@@ -51,4 +51,4 @@ If submitting code, please ensure:
 
 ## License & Attribution
 
-By contributing to cpp-hub, you agree that your contributions will be licensed under the same license as the project root (MIT/Apache-2.0, as applicable to the repository configuration).
+By contributing to cpp-hub, you agree that your contributions will be licensed under the same license as the project root (GPL-3.0).
