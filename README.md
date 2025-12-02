@@ -1,4 +1,4 @@
-# 🚀 cpp-hub: C++ Project Template Hub (AI-Generated Demo)
+# cpp-hub: C++ Project Template Hub (AI-Generated Demo)
 
 ⚠️ **STABILITY NOTICE: CONCEPTUAL REFERENCE**
 
@@ -8,7 +8,7 @@ This repository is currently under **active construction** and is considered **h
 
 ---
 
-## 💡 Overview
+## Overview
 
 `cpp-hub` is a small **C++20 CLI** designed to significantly reduce the "Day Zero" friction associated with starting new C++ projects. It acts as a project generator that leverages remote templates.
 
@@ -21,7 +21,7 @@ This repository is currently under **active construction** and is considered **h
 
 ---
 
-## ✨ Features (Minimum Viable Product - MVP)
+## Features
 
 ### Registry-Backed Discovery
 
@@ -59,7 +59,7 @@ This mechanism applies to all regular files under the template root, excluding:
 
 ---
 
-## 💻 Commands
+## Commands
 
 | Command | Description |
 | :--- | :--- |
@@ -73,7 +73,7 @@ This mechanism applies to all regular files under the template root, excluding:
 
 ---
 
-## 🛠️ Requirements
+## Requirements
 
 ### Toolchain
 * **Language:** C++20 (or newer)
@@ -87,7 +87,7 @@ This mechanism applies to all regular files under the template root, excluding:
 
 ---
 
-## ⚙️ Building
+## Building
 
 Assuming `nlohmann_json` is installed on your system so that `find_package(nlohmann_json CONFIG REQUIRED)` works:
 
